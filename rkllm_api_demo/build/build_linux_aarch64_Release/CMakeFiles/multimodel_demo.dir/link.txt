@@ -1,0 +1,1 @@
+/bin/g++  -O3 -DNDEBUG   CMakeFiles/multimodel_demo.dir/src/multimodel_demo.cpp.o  -o multimodel_demo  -Wl,-rpath,/home/odroid/Desktop/BAMCP/rkllm_api_demo/Linux/librkllm_api/aarch64 ../../Linux/librkllm_api/aarch64/librkllmrt.so 
