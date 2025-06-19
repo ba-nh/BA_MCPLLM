@@ -34,8 +34,12 @@ using namespace std;
 LLMHandle llmHandle = nullptr;
 
 string my_path = "/home/odroid/Desktop/BAMCP/";
-//std::string my_model = "TinyLlama-1.1B-Chat-v1.0.rkllm";
-string my_model = "Qwen1.5-1.8B-Chat.rkllm";
+string my_tinyllama_model = "TinyLlama-1.1B-Chat-v1.0.rkllm";
+string my_qwen_model = "Qwen1.5-1.8B-Chat.rkllm";
+string my_llama_model = "Llama-2-7b-chat-hf.rkllm";
+
+string my_model = my_qwen_model;
+
 string full_path = my_path + my_model;
 
 void exit_handler(int signal)

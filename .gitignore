@@ -15,6 +15,9 @@ cp multimodel_demo ${ROOT_PWD}
 *.ipa
 *.apk
 *.rkllm
+code_arm64.deb
+cursor.AppImage
+llm_demo
 
 # Project files, i.e. `.project`, `.actionScriptProperties` and `.flexProperties`
 # should NOT be excluded as they contain compiler settings and other important
