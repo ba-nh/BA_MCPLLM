@@ -1,4 +1,0 @@
-/home/odroid/Desktop/BAMCP/rkllm_api_demo/build/build_linux_aarch64_Release/CMakeFiles/rebuild_cache.dir
-/home/odroid/Desktop/BAMCP/rkllm_api_demo/build/build_linux_aarch64_Release/CMakeFiles/edit_cache.dir
-/home/odroid/Desktop/BAMCP/rkllm_api_demo/build/build_linux_aarch64_Release/CMakeFiles/multimodel_demo.dir
-/home/odroid/Desktop/BAMCP/rkllm_api_demo/build/build_linux_aarch64_Release/CMakeFiles/llm_demo.dir

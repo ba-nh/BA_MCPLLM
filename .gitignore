@@ -3,11 +3,13 @@ bin-debug/
 bin-release/
 [Oo]bj/
 [Bb]in/
-
+prj/build/
 # Other files and folders
 .settings/
 
 # Executables
+cp llm_demo ${ROOT_PWD}
+cp multimodel_demo ${ROOT_PWD}
 *.swf
 *.air
 *.ipa

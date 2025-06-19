@@ -1,0 +1,33 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "01_BUILD_ALL",
+            "type": "shell",
+            "command": "bash",
+            "args": [
+                "prj/build-linux.sh"
+            ],
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "10_CLEAN_ALL",
+            "type": "shell",
+            "command": "bash",
+            "args": [
+                "prj/build-clean.sh"
+            ],
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
+    ]
+}
