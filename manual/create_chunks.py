@@ -240,7 +240,7 @@ def create_chunks_from_sentences(sentences, tables):
         page_sents = sorted(page_sentences[page_num], key=lambda x: x['y0'])
         
         # 2단 구조인지 확인 (column 정보가 있는지)
-        has_column_info = any('column' in sent for sent in page_sents)
+        has_column_info = any(sent.get('column') in ['left', 'right'] for sent in page_sents)
         
         if has_column_info:
             # 2단 구조: 왼쪽 컬럼을 먼저 완전히 처리하고 나서 오른쪽 컬럼 처리
@@ -258,6 +258,14 @@ def create_chunks_from_sentences(sentences, tables):
             # 1단 구조: 기존 방식 그대로 사용
             # 12pt와 14pt 문장을 제목으로 사용
             title_sentences = [sent for sent in page_sents if sent['font_size'] in [12.0, 14.0]]
+            
+            # 디버깅: 33페이지 정보 출력
+            if page_num == 33:
+                print(f"33페이지 디버깅:")
+                print(f"  총 문장 수: {len(page_sents)}")
+                print(f"  제목 문장 수: {len(title_sentences)}")
+                for title_sent in title_sentences:
+                    print(f"    제목: '{title_sent['sentence']}' at y={title_sent['y0']}")
             
             for i, title_sent in enumerate(title_sentences):
                 title = title_sent['sentence']
@@ -281,6 +289,13 @@ def create_chunks_from_sentences(sentences, tables):
                     content = ' '.join(content_sentences)
                 else:
                     content = title  # 내용이 없으면 제목을 내용으로 사용
+                
+                # 디버깅: 33페이지 정보 출력
+                if page_num == 33:
+                    print(f"    33페이지 청크 생성:")
+                    print(f"      제목: '{title}'")
+                    print(f"      내용 길이: {len(content)}")
+                    print(f"      내용 미리보기: {content[:100]}...")
                 
                 chunk = {
                     'title': title,
