@@ -14,7 +14,7 @@ using namespace std;
 LLMHandle llmHandle = nullptr;
 
 string my_path = "/home/odroid/Desktop/BAMCP/";
-string my_model = "Qwen1.5-1.8B-Chat.rkllm";
+string my_model = "TinyLlama-1.1B-Chat-v1.0.rkllm";
 string full_path = my_path + my_model;
 
 // RAG 서버 설정
@@ -105,14 +105,14 @@ int main (void) {
     param.model_path = full_path.c_str();
 
     // Sampling settings
-    param.top_k = 1;
-    param.top_p = 0.95;
-    param.temperature = 0.8;
-    param.repeat_penalty = 1.1;
-    param.frequency_penalty = 0.0;
-    param.presence_penalty = 0.0;
+    param.top_k = 40;
+    param.top_p = 0.9;
+    param.temperature = 0.3;
+    param.repeat_penalty = 1.2;
+    param.frequency_penalty = 0.1;
+    param.presence_penalty = 0.1;
 
-    param.max_new_tokens = 500;
+    param.max_new_tokens = 200;
     param.max_context_len = 2048;
     param.skip_special_token = true;
     param.extend_param.base_domain_id = 0;
@@ -157,7 +157,6 @@ int main (void) {
             }
         }
 
-        printf("Searching for relevant information...\n");
         auto start = std::chrono::high_resolution_clock::now();
 
         string ragResponse = callRAGAPI(input_str);
@@ -177,6 +176,17 @@ int main (void) {
         if (!root.isMember("prompt")) {
             cerr << "No prompt in RAG response." << endl;
             continue;
+        }
+
+        // 매뉴얼 기반 답변인지 확인
+        bool is_manual_based = false;
+        if (root.isMember("is_manual_based")) {
+            is_manual_based = root["is_manual_based"].asBool();
+        }
+
+        // 매뉴얼 기반 답변일 때만 메시지 출력
+        if (is_manual_based) {
+            printf("I'm thinking. Please wait a moment.\n");
         }
 
         std::string text = root["prompt"].asString();
