@@ -76,7 +76,7 @@ def find_match(text):
 # 요청 모델 정의
 class RAGRequest(BaseModel):
     query: str
-    k: int = 3
+    k: int = 2
     alpha: float = 0.5
 
 @app.post("/rag")
@@ -122,7 +122,7 @@ async def rag(request: RAGRequest):
     context = "\n\n".join([f"Content: {c['content']}" for c in selected_chunks])
     prompt = (
         "<|im_start|>system\n"
-        "Answer clearly and accurately based on the provided context. Keep the answer short and self-contained.\n"
+        "Answer clearly and accurately based on the provided context. Keep the answer short and self-contained. End with a complete sentence.\n"
         "<|im_end|>\n"
         f"<|im_start|>user\nBased on this information: {context}\n\nQuestion: {query}\n"
         "<|im_start|>assistant\n"

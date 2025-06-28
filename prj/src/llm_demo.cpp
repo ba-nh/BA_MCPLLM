@@ -23,6 +23,8 @@ const string BASE_PATH = "/home/odroid/Desktop/BAMCP/";
 const string RAG_SERVER_URL = "http://localhost:5000/rag";
 const string FULL_MODEL_PATH = BASE_PATH + MODEL_NAME;
 
+const int PROMPT_CHAR_LIMIT = 3000;
+
 size_t WriteCallback(void* contents, size_t size, size_t nmemb, string* userp) {
     userp->append((char*)contents, size * nmemb);
     return size * nmemb;
@@ -35,7 +37,7 @@ string callRAGAPI(const string& query) {
     if (curl) {
         Json::Value requestData;
         requestData["query"] = query;
-        requestData["k"] = 3;
+        requestData["k"] = 2;
         requestData["alpha"] = 0.5;
 
         Json::FastWriter writer;
@@ -108,6 +110,7 @@ int main() {
     param.frequency_penalty = 0.1f;
     param.presence_penalty = 0.1f;
     param.max_new_tokens = 60;
+    param.max_context_len = 1024;  // ✅ 프롬프트 최대 토큰 수 설정
 
     if (rkllm_init(&llmHandle, &param, callback) != 0) {
         fprintf(stderr, "[Fatal] Failed to initialize LLM.\n");
@@ -157,6 +160,10 @@ int main() {
         prompt_gen_time = root.get("prompt_gen_time", 0.0).asDouble();
         bool is_manual_based = root.get("is_manual_based", false).asBool();
         g_prompt_str = root["prompt"].asString();
+
+        // ✅ 긴 프롬프트 자르기 (문자 기준)
+        if (g_prompt_str.length() > PROMPT_CHAR_LIMIT)
+            g_prompt_str = g_prompt_str.substr(g_prompt_str.length() - PROMPT_CHAR_LIMIT);
 
         if (is_manual_based)
             printf("I'm thinking. Please wait...\n");
